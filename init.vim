@@ -1,132 +1,111 @@
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
+" Specify a directory for plugins
+" - For Neovim: stdpath('data') . '/plugged'
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.local/share/nvim')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
+Plug 'morhetz/gruvbox'
+Plug 'cloudhead/neovim-fuzzy'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-airline/vim-airline'
+Plug 'jiangmiao/auto-pairs'
+Plug 'yegappan/grep'
+call plug#end()
 
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.local/share/dein/repos/github.com/Shougo/dein.vim
+" Airline configuration
 
-" Activate folding.
-set foldmethod=indent
-set foldlevelstart=20
-
-if &compatible
-  set nocompatible
-endif
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
-
-  call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
-  call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-    call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
-
-  call dein#end()
-  call dein#save_state()
-endif
-
-filetype plugin indent on
-syntax enable
-
-" Required:
-if dein#load_state('~/cache/dein')
-  call dein#begin('~/cache/dein')
-
-  " Let dein manage dein
-  " Required:
-  call dein#add('~/cache/dein/repos/github.com/Shougo/dein.vim')
-
-  " Add or remove your plugins here like this:
-  " call dein#add('xolox/misc')
-  call dein#add('xolox/vim-misc')
-  call dein#add('xolox/vim-notes')
-  call dein#add('flazz/vim-colorschemes')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
-  call dein#add('sheerun/vim-polyglot')
-  call dein#add('tmux-plugins/vim-tmux-focus-events')
-
-  " Required:
-  call dein#end()
-  call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-"End dein Scripts-------------------------
-
-" Configure Notes directory:
-:let g:notes_directories = ['~/Documents/Notes']
-
-" Tab line when shown for all buffers.
 let g:airline#extensions#tabline#enabled = 1
+nnoremap <silent> <C-k> :bnext<CR>
+nnoremap <silent> <C-j> :bprevious<CR>
 
-let g:gitgutter_sign_column_always = 1
+" Configure Fuzzy Finder
+nnoremap <C-o> :FuzzyOpen<CR>
 
-" don't hide all of the backticks etc.
-let g:vim_markdown_conceal = 0
+" Configure NerdTree
+nnoremap <silent> <A-1> :NERDTreeToggle<CR>
 
-set expandtab
-set shiftwidth=2
-set softtabstop=2
-set noswapfile
+"augroup nerdtree_open
+"    autocmd!
+"    autocmd VimEnter * NERDTree | wincmd p
+"augroup END
+
+" Spaces & Tabs {{{
+set tabstop=2       " number of visual spaces per TAB
+set softtabstop=2   " number of spaces in tab when editing
+set shiftwidth=2    " number of spaces to use for autoindent
+set expandtab       " tabs are space
+set autoindent
+set copyindent      " copy indent from the previous line
+" " }}} Spaces & Tabs
+
+" numbers
+set number
 
 
-" Ctags configuration:
+" ------------------------------------
+" Setting up CoC Conquer of Completion
+" ------------------------------------
 
-set tags=./.tags,.tags,./tags,tags
-
-" Key mappings
-" ==============
-" Buffer Navigation
-nmap <C-j> :bp<cr>
-nmap <C-k> :bn<cr>
-nmap <C-l><C-l> :ls<cr>
-nmap <C-l><C-k> :bw<cr>
-
-" Window Navigation
-nmap <silent> <A-j> :wincmd j<CR>
-nmap <silent> <A-k> :wincmd k<CR>
-nmap <silent> <A-h> :wincmd h<CR>
-nmap <silent> <A-l> :wincmd l<CR>
-
-" Goto definition
-nmap gr gdlbvey:%s/<C-R>"//gc<left><left><left>
-nmap gR gdlbvey[{V%::s/<C-R>"//gc<left><left><left>
-
-" AutoClose of brackes
-autocmd FileType c,cpp,java,rust,kotlin,scala inoremap { {<CR>}<Esc>O
-autocmd FileType c,cpp,java,rust,kotlin,scala inoremap ( ()<Left>
-autocmd FileType c,cpp,java,rust,kotlin,scala inoremap <expr> ) strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
-
-" displays line numbers
-set nu
-
-" Enables reading external changes
-set autoread
-autocmd FocusGained * checktime
-
-" Enables so that buffers are autosaved on change.
-set autowriteall
-" autocmd FocusLost * writeall
-" Enables that buffers can be hidden.
+" TextEdit might fail if hidden is not set.
 set hidden
+set autowrite
 
-" Extra Windows
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
 
-"set hidden
-"set number
-"colo desert 
-"filetype plugin indent on
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
