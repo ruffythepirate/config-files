@@ -5,4 +5,4 @@ Here are some confiration files that I use on my linux laptop. You can clone it 
 
 ## nvim configuration
 
-The nvim configuration needs dein installed, which includes setting a dein directory. You can read about it here: (dein install)[https://github.com/Shougo/dein.vim]. Make sure that your dein is installed according to the init.vim (or change the content of the init.vim)
+The nvim configuration needs "Plug" to work. You can install it from [here](https://github.com/junegunn/vim-plug)
