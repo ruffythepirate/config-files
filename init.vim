@@ -10,6 +10,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'yegappan/grep'
+Plug 'mileszs/ack.vim'
 call plug#end()
 
 " Airline configuration
@@ -109,3 +110,14 @@ nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
+
+
+""" Searcher 
+
+" Uses Silver searcher instead of ack, since that should be nicer.
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+nnoremap <silent> <C-f> :Ack 
