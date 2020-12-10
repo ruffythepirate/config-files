@@ -16,8 +16,6 @@ call plug#end()
 " Airline configuration
 
 let g:airline#extensions#tabline#enabled = 1
-nnoremap <silent> <C-k> :bnext<CR>
-nnoremap <silent> <C-j> :bprevious<CR>
 
 " Configure Fuzzy Finder
 nnoremap <C-o> :FuzzyOpen<CR>
@@ -41,6 +39,12 @@ set copyindent      " copy indent from the previous line
 
 " numbers
 set number
+
+" Code folding
+set foldmethod=indent   
+set foldnestmax=10
+set nofoldenable
+set foldlevel=1
 
 
 " ------------------------------------
@@ -121,3 +125,9 @@ if executable('ag')
 endif
 
 nnoremap <silent> <C-f> :Ack 
+
+
+""" Navigation 
+
+nnoremap <silent> <C-k> :bnext<CR>
+nnoremap <silent> <C-j> :bprevious<CR>
