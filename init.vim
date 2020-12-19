@@ -23,6 +23,8 @@ nnoremap <C-o> :FuzzyOpen<CR>
 " Configure NerdTree
 nnoremap <silent> <A-1> :NERDTreeToggle<CR>
 
+let NERDTreeShowHidden=1
+
 "augroup nerdtree_open
 "    autocmd!
 "    autocmd VimEnter * NERDTree | wincmd p

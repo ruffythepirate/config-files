@@ -8,3 +8,10 @@ Here are some confiration files that I use on my linux laptop. You can clone it 
 The nvim configuration needs "Plug" to work. You can install it from [here](https://github.com/junegunn/vim-plug)
 
 You need to install `fzy`, `node` and `silver_searcher` for some of the plugins to work.
+
+### Coc
+
+The Coc plugin of nvim also has a plugin system of itself. I recommend installing:
+* coc-java
+* coc-python
+* coc-snippets
