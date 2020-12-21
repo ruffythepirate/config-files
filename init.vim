@@ -11,6 +11,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'yegappan/grep'
 Plug 'mileszs/ack.vim'
+Plug 'zivyangll/git-blame.vim'
 call plug#end()
 
 " Airline configuration
@@ -128,6 +129,8 @@ endif
 
 nnoremap <silent> <C-f> :Ack 
 
+""" map git blame
+nnoremap gb :<C-u>call gitblame#echo()<CR>
 
 """ Navigation 
 
