@@ -15,3 +15,4 @@ The Coc plugin of nvim also has a plugin system of itself. I recommend installin
 * coc-java
 * coc-python
 * coc-snippets
+* coc-tsserver

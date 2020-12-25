@@ -12,6 +12,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'yegappan/grep'
 Plug 'mileszs/ack.vim'
 Plug 'zivyangll/git-blame.vim'
+Plug 'tpope/vim-commentary'
 call plug#end()
 
 """ Define Leader
@@ -90,7 +91,8 @@ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> grr <Plug>(coc-references)
+nmap <silent> grn <Plug>(coc-rename)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
