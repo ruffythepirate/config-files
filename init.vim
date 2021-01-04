@@ -171,6 +171,8 @@ nnoremap <silent> <C-f> :Ack
 """ map git blame
 nnoremap gb :<C-u>call gitblame#echo()<CR>
 
+nnoremap <C-c> :bufdo q<CR>
+
 """ Navigation 
 
 nnoremap <silent> <C-k> :bnext<CR>
