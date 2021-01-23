@@ -29,7 +29,7 @@ nnoremap <C-o> :FuzzyOpen<CR>
 
 " Close all buffers but this
 
-nnoremap <C-g>c :%bd|e#|bd#
+"nnoremap <C-g>c :%bd|e#|bd#
 
 " Configure NerdTree
 nnoremap <silent> <A-1> :NERDTreeToggle<CR>

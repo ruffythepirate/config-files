@@ -17,3 +17,6 @@ The Coc plugin of nvim also has a plugin system of itself. I recommend installin
 * coc-snippets
 * coc-tsserver
 * coc-rls (rust)
+* coc-json
+
+Also, remember running `PlugUpdate` once in a while, might be needed to install new `coc` plugins.
