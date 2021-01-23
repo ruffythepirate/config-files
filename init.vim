@@ -59,6 +59,8 @@ set foldnestmax=10
 set nofoldenable
 set foldlevel=1
 
+" close all buffers
+" nnoremap <silent> gqo ":%bd|e#|bd#<CR>"
 
 " ------------------------------------
 " Setting up CoC Conquer of Completion
