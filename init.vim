@@ -101,9 +101,20 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> grr <Plug>(coc-references)
 nmap <silent> grn <Plug>(coc-rename)
+nmap <silent> gsw :CocDiagnostics<cr>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -166,6 +177,11 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
 
 """ Searcher 
 
