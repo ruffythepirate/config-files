@@ -18,7 +18,9 @@ call plug#end()
 """ Define Leader
 :let mapleader = ","
 
+""" Commentary
 
+" gc with motion is the shortcut.
 
 """ Airline configuration
 

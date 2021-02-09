@@ -13,6 +13,7 @@ You need to install `fzy`, `node` and `silver_searcher` for some of the plugins 
 
 The Coc plugin of nvim also has a plugin system of itself. I recommend installing:
 * coc-java
+* coc-java-lombok
 * coc-python
 * coc-snippets
 * coc-tsserver
