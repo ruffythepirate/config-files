@@ -3,6 +3,7 @@
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.local/share/nvim')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/rename.nvim'
 Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 Plug 'cloudhead/neovim-fuzzy'
