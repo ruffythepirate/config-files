@@ -9,11 +9,16 @@ Plug 'morhetz/gruvbox'
 Plug 'cloudhead/neovim-fuzzy'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
-Plug 'jiangmiao/auto-pairs'
+"Plug 'jiangmiao/auto-pairs'
 Plug 'yegappan/grep'
 Plug 'mileszs/ack.vim'
 Plug 'zivyangll/git-blame.vim'
-Plug 'tpope/vim-commentary'
+"Plug 'tpope/vim-commentary'
+Plug 'terrortylor/nvim-comment'
+Plug 'github/copilot.vim'
+Plug 'mattn/emmet-vim'
+Plug 'vim-scripts/BufOnly.vim'
+Plug 'OmniSharp/omnisharp-vim'
 call plug#end()
 
 """ Define Leader
@@ -36,6 +41,8 @@ nnoremap <C-o> :FuzzyOpen<CR>
 
 " Configure NerdTree
 nnoremap <silent> <A-1> :NERDTreeToggle<CR>
+nnoremap <silent><leader>n :NERDTreeFind<CR>
+
 
 let NERDTreeShowHidden=1
 
@@ -80,22 +87,16 @@ set nowritebackup
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+"inoremap <silent><expr> <tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
+inoremap <silent><expr> <C-tab> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<TAB>"
+" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<c-g>u\<CR>"
+
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+inoremap <silent><expr> <c-space> coc#_select_confirm()
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :  "\<c-g>u\<CR>"
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -165,17 +166,6 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 let g:coc_snippet_next = '<tab>'
 
 " Add `:OR` command for organize imports of the current buffer.
@@ -183,6 +173,8 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
+
+command Bd execute "%bd|e#|bd#"
 
 """ Searcher 
 
@@ -202,3 +194,7 @@ nnoremap <C-c> :bufdo q<CR>
 
 nnoremap <silent> <C-k> :bnext<CR>
 nnoremap <silent> <C-j> :bprevious<CR>
+
+""" Commentary
+
+lua require('nvim_comment').setup()
